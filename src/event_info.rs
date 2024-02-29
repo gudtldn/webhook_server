@@ -29,6 +29,7 @@ pub enum Event {
     Fork,
     Member,
     Public,
+    Ping,
     Other,
 }
 
@@ -43,6 +44,7 @@ impl Event {
             "fork" => Event::Fork,
             "member" => Event::Member,
             "public" => Event::Public,
+            "ping" => Event::Ping,
             _ => Event::Other,
         }
     }

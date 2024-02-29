@@ -33,6 +33,10 @@ async fn index(req: HttpRequest, data: web::Json<Payload>) -> impl Responder {
                 }
             }
         }
+        Event::Ping => {
+            info!("Received ping event");
+            return "pong";
+        }
         _ => {
             warn!("NotImplemented")
         }
