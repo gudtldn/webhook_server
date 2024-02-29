@@ -4,6 +4,4 @@ EXPOSE 7899/tcp
 
 COPY . .
 
-RUN cargo build --release
-
 CMD ["./target/release/webhook_server"]
