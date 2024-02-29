@@ -1,8 +1,8 @@
 use log::info;
-use std::{io::Error, process::Command};
+use std::{env, io::Error, process::Command};
 
 pub fn change_directory(path: &str) -> Result<(), Error> {
-    Command::new("cd").args(&[path]).output()?;
+    env::set_current_dir(path)?;
     info!("Changed directory to {}", path);
     Ok(())
 }
