@@ -2,7 +2,6 @@ use log::{error, info};
 use std::{env, io::Error, process::Command};
 
 pub fn change_directory(path: &str) -> Result<(), Error> {
-    dbg!(path);
     if let Err(err) = env::set_current_dir(path) {
         error!("Failed to change directory: {}", err);
         return Err(err.into());
