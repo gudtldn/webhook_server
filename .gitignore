@@ -1,3 +1,5 @@
 /target
 *.log
 actions.json
+nohup
+nohup.out
