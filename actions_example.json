@@ -1,0 +1,17 @@
+{
+    "push": [
+        {
+            "docker_container_name": "webhook_test",
+            "repository_name": "webhook_test",
+            "path": "/var/www/webhook_test"
+        }
+    ],
+    "pull_request": [],
+    "issue": [],
+    "release": [],
+    "watch": [],
+    "fork": [],
+    "member": [],
+    "public": [],
+    "other": []
+}
