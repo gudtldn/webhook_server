@@ -16,7 +16,7 @@ pub struct EventData {
 #[derive(Debug, Deserialize)]
 pub struct Action {
     pub docker_container_name: Option<String>,
-    pub repository_name: String,
+    pub repository_full_name: String,
     pub path: String,
 }
 

@@ -2,7 +2,7 @@
     "push": [
         {
             "docker_container_name": "webhook_test",
-            "repository_name": "webhook_test",
+            "repository_full_name": "webhook_test",
             "path": "/var/www/webhook_test"
         }
     ],

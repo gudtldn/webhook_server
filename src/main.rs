@@ -32,17 +32,17 @@ async fn index(req: HttpRequest, data: web::Json<Payload>) -> impl Responder {
                         .expect("Failed to restart container");
                 }
             }
+            return "ok";
         }
         Event::Ping => {
             info!("Received ping event");
             return "pong";
         }
         _ => {
-            warn!("NotImplemented")
+            warn!("NotImplemented");
+            "NotImplemented event type"
         }
     }
-
-    "pong"
 }
 
 #[actix_web::main]

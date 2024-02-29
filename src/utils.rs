@@ -46,7 +46,8 @@ pub fn find_repositeory_event<'a>(
     event_data: &'a EventData,
     repository: &'a Option<Repository>,
 ) -> Option<&'a crate::event_info::Action> {
+    dbg!(repository.as_ref().unwrap().full_name.as_ref().unwrap());
     event_data.push.iter().find(|action| {
-        &action.repository_name == repository.as_ref().unwrap().full_name.as_ref().unwrap()
+        &action.repository_full_name == repository.as_ref().unwrap().full_name.as_ref().unwrap()
     })
 }
