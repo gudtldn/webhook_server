@@ -15,6 +15,8 @@ impl ChangeDirectory {
         env::set_current_dir(target_directory)
             .map_err(|e| format!("Failed to change directory to {}: {}", target_directory, e))?;
 
+        info!("Changed directory to {}", target_directory);
+
         Ok(Self {
             previous_directory: current_directory.to_string_lossy().to_string(),
         })
@@ -26,6 +28,7 @@ impl Drop for ChangeDirectory {
         // 스코프를 벗어날 때 이전 디렉토리로 돌아옴
         env::set_current_dir(&self.previous_directory)
             .expect("Failed to change directory back to the previous one");
+        info!("Changed directory back to {}", self.previous_directory);
     }
 }
 
