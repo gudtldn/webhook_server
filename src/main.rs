@@ -25,6 +25,7 @@ async fn index(req: HttpRequest, data: web::Json<Payload>) -> impl Responder {
         Event::Push => {
             if let Some(action) = find_repositeory_event(&events, &data.repository) {
                 info!("Received push event");
+                dbg!(&data.r#ref);
                 if let Some(refer) = &data.r#ref {
                     let branch_name = refer.trim_start_matches("refs/heads/");
                     let allowed_branches = ["main", "master"];
@@ -35,8 +36,11 @@ async fn index(req: HttpRequest, data: web::Json<Payload>) -> impl Responder {
                     return HttpResponse::NoContent();
                 }
 
-                change_directory(action.path.as_str()).expect("Failed to change directory");
-                pull_from_github().expect("Failed to pull from GitHub");
+                {
+                    ChangeDirectory::new(action.path.as_str()).expect("Failed to change directory");
+                    pull_from_github().expect("Failed to pull from GitHub");
+                }
+
                 if let Some(container_name) = &action.docker_container_name {
                     restart_container(container_name.as_str())
                         .expect("Failed to restart container");

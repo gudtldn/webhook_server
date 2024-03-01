@@ -1,13 +1,32 @@
 use log::{error, info};
 use std::{env, io::Error, process::Command};
 
-pub fn change_directory(path: &str) -> Result<(), Error> {
-    if let Err(err) = env::set_current_dir(path) {
-        error!("Failed to change directory: {}", err);
-        return Err(err.into());
+pub struct ChangeDirectory {
+    previous_directory: String,
+}
+
+impl ChangeDirectory {
+    pub fn new(target_directory: &str) -> Result<Self, String> {
+        // 현재 디렉토리 저장
+        let current_directory =
+            env::current_dir().map_err(|e| format!("Failed to get current directory: {}", e))?;
+
+        // 타겟 디렉토리로 변경
+        env::set_current_dir(target_directory)
+            .map_err(|e| format!("Failed to change directory to {}: {}", target_directory, e))?;
+
+        Ok(Self {
+            previous_directory: current_directory.to_string_lossy().to_string(),
+        })
     }
-    info!("Changed directory to {}", path);
-    Ok(())
+}
+
+impl Drop for ChangeDirectory {
+    fn drop(&mut self) {
+        // 스코프를 벗어날 때 이전 디렉토리로 돌아옴
+        env::set_current_dir(&self.previous_directory)
+            .expect("Failed to change directory back to the previous one");
+    }
 }
 
 pub fn restart_container(container_name: &str) -> Result<(), Error> {
