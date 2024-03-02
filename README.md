@@ -7,11 +7,20 @@ $ cargo build --release
 
 # 권한부여
 ```bash
-$ chmod +x ./start_server.sh
+$ chmod +x ./webhook_server.sh
 ```
 
-# 프로세스 종료
+# 프로세스 시작 및 종료
+## 시작
 ```bash
-$ ps -ef | grep webhook_server
-$ kill -9 {PID}
+$ ./webhook_server.sh start
+```
+
+## 종료
+```bash
+$ ./webhook_server.sh stop
+```
+or
+```bash
+$ ./webhook_server.sh kill
 ```
