@@ -35,11 +35,11 @@ impl Drop for ChangeDirectory {
 pub fn restart_container(container_name: &str) -> Result<(), Error> {
     info!("Restarting container {}", container_name);
     if let Err(err) = Command::new("docker")
-        .args(&["restart", container_name])
+        .args(["restart", container_name])
         .output()
     {
         error!("Failed to restart container {}: {}", container_name, err);
-        return Err(err.into());
+        return Err(err);
     }
     info!("Restarted container {}", container_name);
     Ok(())
@@ -47,9 +47,9 @@ pub fn restart_container(container_name: &str) -> Result<(), Error> {
 
 pub fn pull_from_github() -> Result<(), Error> {
     info!("Pulling from GitHub");
-    if let Err(err) = Command::new("git").args(&["pull"]).output() {
+    if let Err(err) = Command::new("git").args(["pull"]).output() {
         error!("Failed to pull from GitHub: {}", err);
-        return Err(err.into());
+        return Err(err);
     }
     info!("Pulled from GitHub");
     Ok(())
